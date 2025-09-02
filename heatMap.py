@@ -18,7 +18,7 @@ bron_df['result'] = bron_df['result'].replace({True: 'Made', False: 'Missed'})
 
 print(bron_df.head())
 
-# -- Coordinate Conversion --
+# Coordinate Conversion
 
 def convert_c(df):
     df['court_x'] = df['left'] - 240 #X coordinate is refering to image pixels, so must be adjusted to center at 0
@@ -26,10 +26,10 @@ def convert_c(df):
 
     return df
 
-#Apply shift to LeBron's CSV
+# Apply shift to LeBron's CSV
 bron_df = convert_c(bron_df)
 
-# -- Court Drawing --
+# Court Drawing
 
 def draw_court(axis = None):
     if axis is None:
@@ -60,27 +60,27 @@ def draw_court(axis = None):
     axis.add_patch(hoop)
     axis.add_patch(restricted)
 
-    # --- Free Throw Circle ---
+    # Free Throw Circle
     axis.add_patch(Arc((0, 142.5), 120, 120, theta1 = 0, theta2 = 180, lw = 1.5, color = 'blue')) # Top half
     axis.add_patch(Arc((0, 142.5), 120, 120, theta1 = 180, theta2 = 360, lw = 1.5, linestyle = '--', color = 'blue'))  # Bottom half (dashed)
 
-    # --- 3-Point Lines ---
+    # 3-Point Lines 
     axis.plot([-220, -220], [-47.5, 92.5], color = 'blue', linestyle = '-')     # Left corner 3
     axis.plot([220, 220], [-47.5, 92.5], color = 'blue', linestyle = '-')       # Right corner 3
     axis.add_patch(Arc((0, 0), 475, 475, theta1 = 22, theta2 = 158, lw = 1.5, color = 'blue'))   # 3-pt arc
 
-    # --- Halfcourt Circle ---
+    # Halfcourt Circle
     axis.add_patch(Arc((0, 422.5), 122, 122, theta1 = 180, theta2 = 360, lw = 1.5, color='blue'))
 
-    # --- Axis Settings ---
+    # Axis Settings
     axis.set_xlim(-250, 250)
     axis.set_ylim(-47.5, 470)
-    axis.set_aspect(1)     # Equal aspect ratio
-    axis.axis('off')       # Hide axes
+    axis.set_aspect(1)
+    axis.axis('off') 
 
     return fig, axis
 
-# -- Heat Map --
+# Heat Map
 
 fig, ax = plt.subplots(figsize = (9 , 9))
 
